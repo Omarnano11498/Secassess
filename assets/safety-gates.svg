@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 230" width="1200" height="230" role="img" aria-label="Seven safety gates every target passes before and after a scan">
+  <rect width="1200" height="230" rx="18" fill="#0d1117"/>
+  <path id="track" d="M10 110 H1190" stroke="#30363d" stroke-width="3" stroke-dasharray="6 8">
+    <animate attributeName="stroke-dashoffset" from="0" to="-28" dur="1s" repeatCount="indefinite"/>
+  </path>
+  <g>
+    <rect x="22" y="72" width="136" height="76" rx="14" fill="#161b22" stroke="#30363d" stroke-width="2">
+      <animate attributeName="stroke" values="#30363d;#30363d;#3fb950;#30363d;#30363d" keyTimes="0;0.060;0.100;0.220;1" dur="9.0s" repeatCount="indefinite"/>
+      <animate attributeName="fill" values="#161b22;#161b22;#12301c;#161b22;#161b22" keyTimes="0;0.060;0.100;0.220;1" dur="9.0s" repeatCount="indefinite"/>
+    </rect>
+    <text x="90" y="106" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="17" font-weight="700" fill="#e6edf3">Scope</text>
+    <text x="90" y="130" text-anchor="middle" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace" font-size="12" fill="#8b949e">allowed_cidrs</text>
+    <text x="90" y="60" text-anchor="middle" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace" font-size="13" fill="#3fb950" opacity="0">✓ pass
+      <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.060;0.100;0.95;1" dur="9.0s" repeatCount="indefinite"/></text>
+  </g><g>
+    <rect x="192" y="72" width="136" height="76" rx="14" fill="#161b22" stroke="#30363d" stroke-width="2">
+      <animate attributeName="stroke" values="#30363d;#30363d;#3fb950;#30363d;#30363d" keyTimes="0;0.193;0.233;0.353;1" dur="9.0s" repeatCount="indefinite"/>
+      <animate attributeName="fill" values="#161b22;#161b22;#12301c;#161b22;#161b22" keyTimes="0;0.193;0.233;0.353;1" dur="9.0s" repeatCount="indefinite"/>
+    </rect>
+    <text x="260" y="106" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="17" font-weight="700" fill="#e6edf3">Hostnames</text>
+    <text x="260" y="130" text-anchor="middle" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace" font-size="12" fill="#8b949e">literal allowlist</text>
+    <text x="260" y="60" text-anchor="middle" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace" font-size="13" fill="#3fb950" opacity="0">✓ pass
+      <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.193;0.233;0.95;1" dur="9.0s" repeatCount="indefinite"/></text>
+  </g><g>
+    <rect x="362" y="72" width="136" height="76" rx="14" fill="#161b22" stroke="#30363d" stroke-width="2">
+      <animate attributeName="stroke" values="#30363d;#30363d;#3fb950;#30363d;#30363d" keyTimes="0;0.327;0.367;0.487;1" dur="9.0s" repeatCount="indefinite"/>
+      <animate attributeName="fill" values="#161b22;#161b22;#12301c;#161b22;#161b22" keyTimes="0;0.327;0.367;0.487;1" dur="9.0s" repeatCount="indefinite"/>
+    </rect>
+    <text x="430" y="106" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="17" font-weight="700" fill="#e6edf3">DNS re-check</text>
+    <text x="430" y="130" text-anchor="middle" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace" font-size="12" fill="#8b949e">every address</text>
+    <text x="430" y="60" text-anchor="middle" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace" font-size="13" fill="#3fb950" opacity="0">✓ pass
+      <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.327;0.367;0.95;1" dur="9.0s" repeatCount="indefinite"/></text>
+  </g><g>
+    <rect x="532" y="72" width="136" height="76" rx="14" fill="#161b22" stroke="#30363d" stroke-width="2">
+      <animate attributeName="stroke" values="#30363d;#30363d;#3fb950;#30363d;#30363d" keyTimes="0;0.460;0.500;0.620;1" dur="9.0s" repeatCount="indefinite"/>
+      <animate attributeName="fill" values="#161b22;#161b22;#12301c;#161b22;#161b22" keyTimes="0;0.460;0.500;0.620;1" dur="9.0s" repeatCount="indefinite"/>
+    </rect>
+    <text x="600" y="106" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="17" font-weight="700" fill="#e6edf3">Scope ID</text>
+    <text x="600" y="130" text-anchor="middle" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace" font-size="12" fill="#8b949e">SHA-256 confirm</text>
+    <text x="600" y="60" text-anchor="middle" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace" font-size="13" fill="#3fb950" opacity="0">✓ pass
+      <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.460;0.500;0.95;1" dur="9.0s" repeatCount="indefinite"/></text>
+  </g><g>
+    <rect x="702" y="72" width="136" height="76" rx="14" fill="#161b22" stroke="#30363d" stroke-width="2">
+      <animate attributeName="stroke" values="#30363d;#30363d;#3fb950;#30363d;#30363d" keyTimes="0;0.593;0.633;0.753;1" dur="9.0s" repeatCount="indefinite"/>
+      <animate attributeName="fill" values="#161b22;#161b22;#12301c;#161b22;#161b22" keyTimes="0;0.593;0.633;0.753;1" dur="9.0s" repeatCount="indefinite"/>
+    </rect>
+    <text x="770" y="106" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="17" font-weight="700" fill="#e6edf3">argv guard</text>
+    <text x="770" y="130" text-anchor="middle" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace" font-size="12" fill="#8b949e">assert_safe_argv</text>
+    <text x="770" y="60" text-anchor="middle" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace" font-size="13" fill="#3fb950" opacity="0">✓ pass
+      <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.593;0.633;0.95;1" dur="9.0s" repeatCount="indefinite"/></text>
+  </g><g>
+    <rect x="872" y="72" width="136" height="76" rx="14" fill="#161b22" stroke="#30363d" stroke-width="2">
+      <animate attributeName="stroke" values="#30363d;#30363d;#3fb950;#30363d;#30363d" keyTimes="0;0.727;0.767;0.887;1" dur="9.0s" repeatCount="indefinite"/>
+      <animate attributeName="fill" values="#161b22;#161b22;#12301c;#161b22;#161b22" keyTimes="0;0.727;0.767;0.887;1" dur="9.0s" repeatCount="indefinite"/>
+    </rect>
+    <text x="940" y="106" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="17" font-weight="700" fill="#e6edf3">Nmap -n</text>
+    <text x="940" y="130" text-anchor="middle" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace" font-size="12" fill="#8b949e">IPs only</text>
+    <text x="940" y="60" text-anchor="middle" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace" font-size="13" fill="#3fb950" opacity="0">✓ pass
+      <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.727;0.767;0.95;1" dur="9.0s" repeatCount="indefinite"/></text>
+  </g><g>
+    <rect x="1042" y="72" width="136" height="76" rx="14" fill="#161b22" stroke="#30363d" stroke-width="2">
+      <animate attributeName="stroke" values="#30363d;#30363d;#3fb950;#30363d;#30363d" keyTimes="0;0.860;0.900;0.970;1" dur="9.0s" repeatCount="indefinite"/>
+      <animate attributeName="fill" values="#161b22;#161b22;#12301c;#161b22;#161b22" keyTimes="0;0.860;0.900;0.970;1" dur="9.0s" repeatCount="indefinite"/>
+    </rect>
+    <text x="1110" y="106" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="17" font-weight="700" fill="#e6edf3">Post-filter</text>
+    <text x="1110" y="130" text-anchor="middle" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace" font-size="12" fill="#8b949e">drop out-of-scope</text>
+    <text x="1110" y="60" text-anchor="middle" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace" font-size="13" fill="#3fb950" opacity="0">✓ pass
+      <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.860;0.900;0.95;1" dur="9.0s" repeatCount="indefinite"/></text>
+  </g>
+  <circle r="9" fill="#58a6ff" opacity="0">
+    <animateMotion dur="9.0s" repeatCount="indefinite" path="M10 110 H1190" keyPoints="0;1;1" keyTimes="0;0.92;1" calcMode="linear"/>
+    <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.03;0.9;1" dur="9.0s" repeatCount="indefinite"/>
+  </circle>
+  <text x="600.0" y="202" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="15" fill="#8b949e">Pre-scan gates stop the run on failure (exit 2 / 3) · the post-filter drops any out-of-scope result</text>
+</svg>
