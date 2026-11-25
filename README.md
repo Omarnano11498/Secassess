@@ -6,10 +6,11 @@
 
 <br>
 
-[![CI](https://github.com/OWNER/REPO/actions/workflows/ci.yml/badge.svg)](https://github.com/OWNER/REPO/actions/workflows/ci.yml)
+[![CI](https://github.com/Omarnano11498/secassess/actions/workflows/ci.yml/badge.svg)](https://github.com/Omarnano11498/secassess/actions/workflows/ci.yml)
 ![Python](https://img.shields.io/badge/python-3.12-3776AB?logo=python&logoColor=white)
 ![Core dependencies](https://img.shields.io/badge/core_dependencies-none_(stdlib)-2ea043)
 ![Default mode](https://img.shields.io/badge/default-dry--run-1f6feb)
+[![License: MIT](https://img.shields.io/badge/license-MIT-yellow)](LICENSE)
 
 **Security tooling that is safe by default and ready for a CI/CD pipeline.**<br>
 A Python 3.12 command-line tool for authorized network inventory, risk analysis,<br>
@@ -30,14 +31,14 @@ static project review and hardware-health checks. Its guardrails are enforced in
 
 | Area | What it does | Where |
 |---|---|---|
-| **Guardrails as code** | Targets must fall entirely within allowed CIDRs and hostnames. Active runs need a SHA-256 Scope ID bound to the exact scope and targets. Dangerous Nmap flags are rejected before every execution. | `scope.py`, `network/nmap_scanner.py` |
+| **Guardrails as code** | Targets must fall entirely within allowed CIDRs and hostnames. Active runs need a Scope ID (a 12-character SHA-256 fingerprint) bound to the exact scope and targets. Dangerous Nmap flags are rejected before every execution. | `scope.py`, `network/nmap_scanner.py` |
 | **Ready for pipelines** | Non-interactive confirmation (`--confirm-scope`), a severity gate (`--fail-on high`), JSON output and documented exit codes | `cli.py` |
 | **Built-in SAST** | Bandit, plus Semgrep with **local rules only** and `--metrics=off`; both degrade gracefully when missing | `project_review/reviewer.py`, `rules/semgrep-local.yml` |
 | **Secrets hygiene** | Secret patterns are reported by path and line, never by value. Reports are redacted twice (JSON and Word) and written with `0600` permissions. | `redact.py`, `reporting/` |
 | **Least-privilege execution** | Subprocesses run without a shell, with timeouts and a restricted environment | `runner.py` |
 | **Auditability** | Append-only JSON Lines audit log: scope, enabled checks, confirmation method and outcome. It never records tool output or secrets. | `audit.py` |
 | **Minimal supply chain** | The core uses only the standard library. No vulnerability data is shipped, and scans make no online queries. | `pyproject.toml`, `risk/nvd.py` |
-| **Testability** | Every side effect (tools, DNS, input, privileges) is injected through `cli.Deps`. Tests simulate Nmap XML, send no traffic and run on Linux and Windows. | `tests/` |
+| **Testability** | Every side effect (tools, DNS, input, privileges) is injected through `cli.Deps`. 122 tests simulate Nmap XML and send no traffic; mypy runs in strict mode; CI covers Linux and Windows. | `tests/`, `pyproject.toml` |
 
 <img src="assets/divider.svg" width="100%" alt="">
 
@@ -69,7 +70,7 @@ The report's "attack paths" are textual explanations only, and their status is a
 | Decision | Why | Trade-off |
 |---|---|---|
 | Dry-run is the default | An accidental run must never send traffic | An extra, deliberate step before every active scan |
-| Scope ID = SHA-256 of scope **and** targets | A confirmation cannot be reused after the targets change, including a stale ID left in CI | The ID has to be refreshed whenever the targets change |
+| Scope ID = SHA-256 fingerprint (12-char prefix) of scope **and** targets | A confirmation cannot be reused after the targets change, including a stale ID left in CI | The ID has to be refreshed whenever the targets change |
 | Resolve DNS once and pass Nmap IPs only (`-n`) | A DNS change between validation and scanning cannot widen the scope | Nmap never sees hostnames |
 | Block risky flags in code, not just in the docs | Defense in depth: a wrong configuration or wrapper script still cannot enable them | Fewer scan features by design |
 | Version-match findings are capped at `medium` confidence | Distribution backports make version matching unreliable | Matches still need manual verification |
@@ -113,6 +114,9 @@ This repository runs its own pipeline in [`.github/workflows/ci.yml`](.github/wo
 - A self-scan with Bandit and the secret-pattern checks. The reports are uploaded as build artifacts.
 - `permissions: contents: read` and `persist-credentials: false`, so the workflow token gets only the access it needs.
 - Dependabot keeps the GitHub Actions and pip dependencies up to date.
+
+> [!NOTE]
+> The self-scan of this repository currently reports six `medium` "possible hard-coded credential" matches, all of them deliberate dummy strings in `tests/` that exercise the detector, and one `low` finding for the missing Python lockfile. With `--fail-on high` the gate passes.
 
 **Gating a pipeline on findings.** This job reviews the project, writes one JSON report per part, and fails the build at `high` or above:
 
@@ -263,6 +267,10 @@ secassess report network.json project.json hw.json --docx full.docx   # Merged A
 - TCP only, with no authenticated checks and no inspection of configuration files on remote hosts.
 - Project dependencies are not checked against vulnerability databases. Pair the tool with `pip-audit` or `osv-scanner`.
 - The CLI and the JSON and text reports are in English; the Word report is in Arabic.
+
+## License
+
+Released under the [MIT License](LICENSE).
 
 <div align="center">
 <br>
