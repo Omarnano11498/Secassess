@@ -1,0 +1,148 @@
+# Default local Semgrep rules bundled with secassess (used by `secassess full` and available to
+# `secassess project --semgrep-config`). Local file only: no registry download, metrics off.
+# Each message names the problem and the fix, because secassess shows the message as the title.
+rules:
+  # ------------------------------------------------------------------ Python
+  - id: python-subprocess-shell-true
+    languages: [python]
+    severity: ERROR
+    message: "subprocess call with shell=True (command injection risk); pass an argv list without shell=True"
+    pattern: subprocess.$FUNC(..., shell=True, ...)
+    metadata: {category: security, cwe: "CWE-78"}
+
+  - id: python-os-system
+    languages: [python]
+    severity: WARNING
+    message: "os.system/os.popen runs a shell command; use subprocess.run with an argv list"
+    pattern-either:
+      - pattern: os.system(...)
+      - pattern: os.popen(...)
+    metadata: {category: security, cwe: "CWE-78"}
+
+  - id: python-eval-exec-dynamic
+    languages: [python]
+    severity: ERROR
+    message: "eval/exec on a non-literal value (code injection risk); use ast.literal_eval or explicit parsing"
+    patterns:
+      - pattern-either:
+          - pattern: eval($X, ...)
+          - pattern: exec($X, ...)
+      - pattern-not: eval("...", ...)
+      - pattern-not: exec("...", ...)
+    metadata: {category: security, cwe: "CWE-95"}
+
+  - id: python-yaml-unsafe-load
+    languages: [python]
+    severity: ERROR
+    message: "yaml.load without SafeLoader can construct arbitrary objects; use yaml.safe_load"
+    patterns:
+      - pattern: yaml.load(...)
+      - pattern-not: yaml.load(..., Loader=yaml.SafeLoader, ...)
+      - pattern-not: yaml.load(..., Loader=SafeLoader, ...)
+      - pattern-not: yaml.load(..., Loader=yaml.CSafeLoader, ...)
+    metadata: {category: security, cwe: "CWE-502"}
+
+  - id: python-pickle-load
+    languages: [python]
+    severity: WARNING
+    message: "pickle/marshal deserialization of untrusted data executes code; use JSON or a safe format"
+    pattern-either:
+      - pattern: pickle.load(...)
+      - pattern: pickle.loads(...)
+      - pattern: marshal.loads(...)
+    metadata: {category: security, cwe: "CWE-502"}
+
+  - id: python-requests-verify-false
+    languages: [python]
+    severity: ERROR
+    message: "TLS certificate verification disabled (verify=False); keep verification on"
+    pattern-either:
+      - pattern: requests.$M(..., verify=False, ...)
+      - pattern: httpx.$M(..., verify=False, ...)
+    metadata: {category: security, cwe: "CWE-295"}
+
+  - id: python-weak-hash
+    languages: [python]
+    severity: WARNING
+    message: "MD5/SHA1 are broken for security use; use SHA-256+ (or pass usedforsecurity=False for non-security use)"
+    patterns:
+      - pattern-either:
+          - pattern: hashlib.md5(...)
+          - pattern: hashlib.sha1(...)
+      - pattern-not: hashlib.$H(..., usedforsecurity=False, ...)
+    metadata: {category: security, cwe: "CWE-327"}
+
+  - id: python-flask-debug
+    languages: [python]
+    severity: WARNING
+    message: "Flask app run with debug=True exposes the interactive debugger; disable in production"
+    pattern: $APP.run(..., debug=True, ...)
+    metadata: {category: security, cwe: "CWE-489"}
+
+  - id: python-tempfile-mktemp
+    languages: [python]
+    severity: WARNING
+    message: "tempfile.mktemp is race-prone; use tempfile.mkstemp or NamedTemporaryFile"
+    pattern: tempfile.mktemp(...)
+    metadata: {category: security, cwe: "CWE-377"}
+
+  - id: python-bind-all-interfaces
+    languages: [python]
+    severity: INFO
+    message: "Service bound to 0.0.0.0 (all interfaces); bind to a specific interface unless intended"
+    pattern-either:
+      - pattern: $S.bind(("0.0.0.0", $P))
+      - pattern: $APP.run(..., host="0.0.0.0", ...)
+    metadata: {category: security, cwe: "CWE-200"}
+
+  # ------------------------------------------------------------------ JavaScript / TypeScript
+  - id: js-eval
+    languages: [javascript, typescript]
+    severity: ERROR
+    message: "eval/new Function on dynamic input (code injection risk); avoid dynamic code evaluation"
+    patterns:
+      - pattern-either:
+          - pattern: eval($X)
+          - pattern: new Function(...)
+      - pattern-not: eval("...")
+    metadata: {category: security, cwe: "CWE-95"}
+
+  - id: js-innerhtml-assignment
+    languages: [javascript, typescript]
+    severity: WARNING
+    message: "Assignment to innerHTML/outerHTML with dynamic data (XSS risk); use textContent or sanitize"
+    patterns:
+      - pattern-either:
+          - pattern: $EL.innerHTML = $X
+          - pattern: $EL.outerHTML = $X
+      - pattern-not: $EL.innerHTML = "..."
+      - pattern-not: $EL.outerHTML = "..."
+    metadata: {category: security, cwe: "CWE-79"}
+
+  - id: js-child-process-exec
+    languages: [javascript, typescript]
+    severity: WARNING
+    message: "child_process.exec runs a shell; use execFile/spawn with an argument array"
+    pattern-either:
+      - pattern: require("child_process").exec(...)
+      - patterns:
+          - pattern-inside: |
+              $CP = require("child_process")
+              ...
+          - pattern: $CP.exec(...)
+    metadata: {category: security, cwe: "CWE-78"}
+
+  - id: js-tls-reject-unauthorized-off
+    languages: [javascript, typescript]
+    severity: ERROR
+    message: "TLS verification disabled (rejectUnauthorized: false); keep certificate checks on"
+    pattern: "{..., rejectUnauthorized: false, ...}"
+    metadata: {category: security, cwe: "CWE-295"}
+
+  # ------------------------------------------------------------------ Any language
+  - id: generic-private-key-in-file
+    languages: [generic]
+    severity: ERROR
+    message: "Private key material committed to the repository; remove it and rotate the key"
+    pattern-regex: "-----BEGIN (RSA |EC |DSA |OPENSSH |ENCRYPTED )?PRIVATE KEY-----"
+    metadata: {category: security, cwe: "CWE-798"}

@@ -1,0 +1,26 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+dist/
+build/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+# Reports and audit logs may contain internal addresses; keep them out of VCS.
+*.json
+*.docx
+!src/**/*.json
+secassess-audit.log
+*.log
+# Real scan scopes describe private networks; only the documentation-range example is tracked.
+config/*.toml
+!config/example.toml
+*scope*.toml
+reports/
+advisories/
+# Raw Nmap output.
+*.nmap
+*.gnmap
+*.xml

@@ -1,0 +1,30 @@
+# secassess example configuration.
+# Uses ONLY documentation ranges (RFC 5737 / RFC 3849) and reserved example names (RFC 2606).
+# Copy this file and replace the values with ranges you own or are authorized in writing to assess.
+
+[scope]
+# Every target must be fully contained in one of these networks.
+allowed_cidrs = ["192.0.2.0/24", "198.51.100.0/26", "2001:db8:10::/64"]
+# Hostnames must be listed exactly; their resolved IPs must also fall inside allowed_cidrs.
+allowed_hostnames = ["web01.example.com", "db01.example.com"]
+# Publicly routable addresses are rejected unless this is true AND they are in allowed_cidrs.
+allow_public_targets = false
+# Upper bound on the number of hosts a single run may cover.
+max_hosts = 256
+
+[network]
+top_ports = 100           # 1-1000
+max_rate = 20             # packets/second, 1-500
+max_retries = 1           # 0-3
+host_timeout_seconds = 120
+scan_timeout_seconds = 1800
+timing_template = 2       # 0-3 only; aggressive T4/T5 are refused
+version_detection = true
+version_intensity = 2     # 0-5; lower = fewer probes
+
+[advisories]
+# Local advisory JSON files (schema in README). Relative paths are resolved from this file.
+paths = []
+
+[audit]
+log_path = "secassess-audit.log"

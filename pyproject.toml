@@ -1,0 +1,61 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "secassess"
+version = "0.1.0"
+description = "Defensive, scope-enforced security assessment CLI (network inventory, risk analysis, project review, hardware-health indicators)."
+readme = "README.md"
+requires-python = ">=3.12"
+license = "MIT"
+authors = [{ name = "secassess contributors" }]
+# The core has no mandatory third-party runtime dependencies (stdlib only).
+dependencies = []
+
+[project.optional-dependencies]
+# Better cross-platform hardware indicators (battery, temperatures).
+hardware = ["psutil>=5.9"]
+# Python static analysis inside project review.
+static = ["bandit>=1.7"]
+dev = ["pytest>=8.0", "ruff>=0.4", "mypy>=1.8"]
+all = ["psutil>=5.9", "bandit>=1.7"]
+
+[project.scripts]
+secassess = "secassess.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+secassess = ["rules/*.yml"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "S", "BLE", "RUF"]
+ignore = [
+    "S603",  # subprocess without shell: we always pass argv lists and validate inputs
+    "RUF001", "RUF002", "RUF003",
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["S101", "S105", "S106", "S108", "S314"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+warn_unused_ignores = true
+mypy_path = "src"
+files = ["src/secassess"]
+
+[[tool.mypy.overrides]]
+module = ["psutil", "psutil.*"]
+ignore_missing_imports = true
