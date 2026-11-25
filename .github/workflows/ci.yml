@@ -64,7 +64,7 @@ jobs:
         run: pip install -e ".[all]"
 
       # Project review only: no network scan, no hardware checks.
-      # The repo contains one deliberate dummy credential in a test file,
+      # tests/ contains deliberate dummy credentials that exercise the detector,
       # so this job reports findings without failing the build.
       - name: Review this repository
         run: secassess full --no-hardware --no-semgrep --out-dir reports
